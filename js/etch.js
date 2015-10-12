@@ -1,15 +1,35 @@
 $(document).ready(function () {
-    //Add an alert that get's triggered when the button gets pushed, ask user for number of boxes, store in variable
-    
-    for (var i = 0; i <= 255; i++) {
-        //Move info that doesn't get edited to css page under class "cell".
-        //Divide percentage by user input. Alot 96 percent for cell, 4 percent for margin.
-        //So 96/userInput concatonated into width and height. Then 4/userInput concatonated into margin.
-        $(".container").append("<div class='cell' style='display:inline-block;background-color:grey;width:5.75%;height:5.75%;margin:.25%;float:left;'></div>");
+var boxes = 16;
+//Evaluating Box Size within a function.
+var etch = function(x) {    
+    for (var i = 0; i <= (x * x - 1); i++) {
+        $(".container").append("<div class='cell' style='width:" + (90/x) + "%;height:" + (90/x) + "%;margin:" + (5/x) + "%;float:left;'></div>");
     }
-        //This is where you put the color randomizer, figure that out later.
     $(".cell").hover(function () {
         $(this).css("background-color","black");
+});
+}
+
+//Color Randomizer - click for fabulous.
+$(".rainbow").click(function() {
+        $(".cell").hover(function () {
+        var colo = function() {
+          return Math.floor(Math.random() * 255);  
+        };
+            $(this).css("background-color", "rgb(" + colo() + "," + colo() + "," + colo() + ")");
+        });
+});
+
+etch(boxes);
+    
+    
+//We know you have a choice in boxes, we're glad you chose ours.
+    $(".clearOut").click(function() {
+        $(".cell").css("background-color", "grey");
+        var userBoxes = prompt("How many boxes should it hold?");
+        $(".container").empty();
+        etch(userBoxes);
+        console.log(userBoxes);
     });
 });
 
